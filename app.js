@@ -1,6 +1,7 @@
 const express = require('express');
 const request = require('request');
 const app = express();
+const https = require('https');
 
 /** El módulo request está deprecado */
 
@@ -60,11 +61,32 @@ app.post('/', (req, res) => {
     const lastName = req.body.lastName;
     const email = req.body.email;
 
-    console.log(firstName, lastName, email);
+    const data = {
+        members: [
+            {
+                email_address: email,
+                status: 'subscribed',
+                merge_fields: {
+                    FNAME: firstName,
+                    LNAME: lastName
+                }
+            }
+        ]
+    };
 
+    const jsonData = JSON.stringify(data);
+    
 });
+    
 
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
+
+
+/** API Key  */
+// 4c750af1ddd1b31c1b7b10200957a1d9-us13
+
+/** List ID */
+// 228ec79b96
